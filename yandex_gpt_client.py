@@ -1,10 +1,12 @@
 import requests
-from config import config_key
+import os
+from dotenv import load_dotenv, find_dotenv
 
 
+load_dotenv(find_dotenv())
 def get_answer_from_yandex_gpt(role: str, text: str):
     prompt = {
-        "modelUri": config_key.catalog_identification,
+        "modelUri": os.getenv('catalog_identification'),
         "completionOptions": {
             "stream": False,
             "temperature": 1,
@@ -25,7 +27,7 @@ def get_answer_from_yandex_gpt(role: str, text: str):
     url = "https://llm.api.cloud.yandex.net/foundationModels/v1/completion"
     headers = {
         "Content-Type": "application/json",
-        "Authorization": config_key.yandex_secret_key
+        "Authorization": os.getenv('yandex_secret_key')
     }
     response = requests.post(url, headers=headers, json=prompt)
     result = response.text

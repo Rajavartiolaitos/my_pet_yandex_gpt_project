@@ -9,7 +9,6 @@ from yandex_gpt_client import get_answer_from_yandex_gpt
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     Base.metadata.create_all(engine)
-    print("Запись внесена")
     yield
 
 app = FastAPI(title='Мой невероятный (на самом деле нет) пет-проект', lifespan=lifespan)
